@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${implant.modelName}">
+        Implant Details
+    </title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🦷 ImplantDB
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/implants">
+            Browse Implants
+        </a>
+
+        <a href="/admin">
+            Admin
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+    <a href="/implants"
+       class="back-link">
+
+        ← Back to Implant Models
+
+    </a>
+
+
+    <section class="detail-card">
+
+
+        <div class="detail-image">
+
+            <img
+                th:src="${implant.modelId == 1 ?
+                'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800' :
+                'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800'}"
+                alt="Dental Implant">
+
+        </div>
+
+
+        <div class="detail-content">
+
+            <span class="status"
+                  th:text="${implant.status}">
+            </span>
+
+            <h1 th:text="${implant.modelName}">
+                Implant Model
+            </h1>
+
+            <p class="brand-large"
+               th:text="${implant.brand.brandName}">
+                Brand
+            </p>
+
+
+            <p th:text="${implant.description}">
+                Implant description.
+            </p>
+
+
+            <div class="detail-grid">
+
+                <div>
+
+                    <span class="label">
+                        Brand
+                    </span>
+
+                    <strong
+                        th:text="${implant.brand.brandName}">
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span class="label">
+                        Type
+                    </span>
+
+                    <strong
+                        th:text="${implant.type.typeName}">
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span class="label">
+                        Material
+                    </span>
+
+                    <strong
+                        th:text="${implant.material.materialName}">
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span class="label">
+                        Status
+                    </span>
+
+                    <strong
+                        th:text="${implant.status}">
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="information-section">
+
+        <h2>
+            Implant Information
+        </h2>
+
+        <div class="information-grid">
+
+            <div class="information-card">
+
+                <span class="big-icon">
+                    🏷️
+                </span>
+
+                <h3>
+                    Brand
+                </h3>
+
+                <p
+                    th:text="${implant.brand.brandName}">
+                </p>
+
+                <small
+                    th:text="${implant.brand.country}">
+                </small>
+
+            </div>
+
+
+            <div class="information-card">
+
+                <span class="big-icon">
+                    🦷
+                </span>
+
+                <h3>
+                    Implant Type
+                </h3>
+
+                <p
+                    th:text="${implant.type.typeName}">
+                </p>
+
+            </div>
+
+
+            <div class="information-card">
+
+                <span class="big-icon">
+                    ⚙️
+                </span>
+
+                <h3>
+                    Material
+                </h3>
+
+                <p
+                    th:text="${implant.material.materialName}">
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+</body>
+
+</html>

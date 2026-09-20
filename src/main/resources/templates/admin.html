@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🦷 ImplantDB
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/implants">
+            Browse
+        </a>
+
+        <a href="/admin">
+            Admin
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            ADMINISTRATION
+        </p>
+
+        <h1>
+            Manage Implant Models
+        </h1>
+
+        <p>
+            Add or remove implant models from the database.
+        </p>
+
+    </div>
+
+
+    <section class="admin-form">
+
+        <h2>
+            Add Implant Model
+        </h2>
+
+
+        <form
+                action="/admin/add"
+                method="post">
+
+
+            <label>
+                Model Name
+            </label>
+
+            <input
+                    type="text"
+                    name="modelName"
+                    placeholder="Example: BLT Implant"
+                    required>
+
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                    name="description"
+                    placeholder="Enter description">
+            </textarea>
+
+
+            <label>
+                Status
+            </label>
+
+            <select name="status">
+
+                <option value="Available">
+                    Available
+                </option>
+
+                <option value="Discontinued">
+                    Discontinued
+                </option>
+
+            </select>
+
+
+            <label>
+                Brand
+            </label>
+
+            <select name="brand.brandId">
+
+                <option
+                        th:each="brand : ${brands}"
+                        th:value="${brand.brandId}"
+                        th:text="${brand.brandName}">
+                </option>
+
+            </select>
+
+
+            <label>
+                Implant Type
+            </label>
+
+            <select name="type.typeId">
+
+                <option
+                        th:each="type : ${types}"
+                        th:value="${type.typeId}"
+                        th:text="${type.typeName}">
+                </option>
+
+            </select>
+
+
+            <label>
+                Material
+            </label>
+
+            <select name="material.materialId">
+
+                <option
+                        th:each="material : ${materials}"
+                        th:value="${material.materialId}"
+                        th:text="${material.materialName}">
+                </option>
+
+            </select>
+
+
+            <button
+                    type="submit"
+                    class="primary-button">
+
+                Add Implant
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="admin-list">
+
+        <h2>
+            Existing Implant Models
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>
+                    ID
+                </th>
+
+                <th>
+                    Model
+                </th>
+
+                <th>
+                    Brand
+                </th>
+
+                <th>
+                    Type
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            <tr
+                th:each="implant : ${implants}">
+
+                <td
+                    th:text="${implant.modelId}">
+                </td>
+
+                <td
+                    th:text="${implant.modelName}">
+                </td>
+
+                <td
+                    th:text="${implant.brand.brandName}">
+                </td>
+
+                <td
+                    th:text="${implant.type.typeName}">
+                </td>
+
+                <td
+                    th:text="${implant.status}">
+                </td>
+
+                <td>
+
+                    <form
+                            th:action="@{/admin/delete/{id}(id=${implant.modelId})}"
+                            method="post">
+
+                        <button
+                                type="submit"
+                                class="delete-button"
+                                onclick="return confirmDelete()">
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+<script src="/js/script.js"></script>
+
+</body>
+
+</html>

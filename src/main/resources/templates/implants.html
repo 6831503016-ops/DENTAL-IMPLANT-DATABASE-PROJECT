@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Implants</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🦷 ImplantDB
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/implants">
+            Browse Implants
+        </a>
+
+        <a href="/admin">
+            Admin
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page">
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            DATABASE
+        </p>
+
+        <h1>
+            Implant Models
+        </h1>
+
+        <p>
+            Browse available dental implant models.
+        </p>
+
+    </div>
+
+
+    <section class="search-section">
+
+        <form action="/implants/search"
+              method="get"
+              class="search-form">
+
+            <input
+                    type="text"
+                    name="keyword"
+                    placeholder="Search implant model..."
+                    id="searchInput">
+
+            <button type="submit"
+                    class="primary-button">
+
+                Search
+
+            </button>
+
+        </form>
+
+        <button
+                onclick="filterImplants()"
+                class="secondary-button">
+
+            Filter
+
+        </button>
+
+    </section>
+
+
+    <section class="filter-box">
+
+        <select id="brandFilter"
+                onchange="filterImplants()">
+
+            <option value="">
+                All Brands
+            </option>
+
+            <option
+                    th:each="implant : ${implants}"
+                    th:value="${implant.brand.brandName}"
+                    th:text="${implant.brand.brandName}">
+            </option>
+
+        </select>
+
+
+        <select id="typeFilter"
+                onchange="filterImplants()">
+
+            <option value="">
+                All Types
+            </option>
+
+            <option
+                    th:each="implant : ${implants}"
+                    th:value="${implant.type.typeName}"
+                    th:text="${implant.type.typeName}">
+            </option>
+
+        </select>
+
+
+        <select id="materialFilter"
+                onchange="filterImplants()">
+
+            <option value="">
+                All Materials
+            </option>
+
+            <option
+                    th:each="implant : ${implants}"
+                    th:value="${implant.material.materialName}"
+                    th:text="${implant.material.materialName}">
+            </option>
+
+        </select>
+
+    </section>
+
+
+    <section class="implant-grid"
+             id="implantGrid">
+
+
+        <div class="implant-card"
+             th:each="implant : ${implants}"
+
+             th:attr="
+                data-name=${implant.modelName},
+                data-brand=${implant.brand.brandName},
+                data-type=${implant.type.typeName},
+                data-material=${implant.material.materialName}">
+
+            <div class="implant-image">
+
+                <img
+                    th:src="${implant.modelId == 1 ?
+                    'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800' :
+                    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800'}"
+                    alt="Dental Implant">
+
+            </div>
+
+
+            <div class="implant-content">
+
+                <span class="status"
+                      th:text="${implant.status}">
+                </span>
+
+                <h2 th:text="${implant.modelName}">
+                    Implant Model
+                </h2>
+
+                <p class="brand-name"
+                   th:text="${implant.brand.brandName}">
+                    Brand
+                </p>
+
+                <div class="implant-info">
+
+                    <span>
+                        <strong>Type</strong>
+                        <br>
+                        <span th:text="${implant.type.typeName}">
+                        </span>
+                    </span>
+
+                    <span>
+                        <strong>Material</strong>
+                        <br>
+                        <span th:text="${implant.material.materialName}">
+                        </span>
+                    </span>
+
+                </div>
+
+
+                <a
+                    th:href="@{/implants/{id}(id=${implant.modelId})}"
+                    class="details-button">
+
+                    View Details →
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+<script src="/js/script.js"></script>
+
+</body>
+
+</html>
